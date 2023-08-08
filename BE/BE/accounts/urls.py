@@ -1,20 +1,22 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import TeacherSignUpViewSet, StudentSignUpViewSet
+from django.urls import path
+from .views import (
+    TeacherSignUpView,
+    StudentSignUpView,
+    TeacherLoginView,
+    StudentLoginView,
+    LogoutView,
+)
 from .views import kakao_callback, kakao_login
 
-router = DefaultRouter()
-router.register(r'teacher/signup', TeacherSignUpViewSet, basename='teacher-signup')
-router.register(r'student/signup', StudentSignUpViewSet, basename='student-signup')
-
-
-urlpatterns =[
-    path('api-auth/', include('rest_framework.urls')),
-
-    path('', include(router.urls)), # teacher url
-    path('student/signup/', include(router.urls)), 
-
+urlpatterns = [
+    path("api-auth/", include("rest_framework.urls")),
+    path("teacher/signup/", TeacherSignUpView.as_view(), name="teacher-signup"),
+    path("student/signup/", StudentSignUpView.as_view(), name="student-signup"),
+    path("teacher/login/", TeacherLoginView.as_view(), name="teacher-login"),
+    path("student/login/", StudentLoginView.as_view(), name="student-login"),
+    path("logout/", LogoutView.as_view(), name="logout"),
     # 소셜 로그인
-    path('account/login/kakao/', kakao_login, name='kakao_login'),
-    path('account/login/kakao/callback/', kakao_callback, name='kakao_callback'),
+    path("account/login/kakao/", kakao_login, name="kakao_login"),
+    path("account/login/kakao/callback/", kakao_callback, name="kakao_callback"),
 ]

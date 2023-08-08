@@ -17,6 +17,6 @@ urlpatterns = [
     path("student/login/", StudentLoginView.as_view(), name="student-login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     # 소셜 로그인
-    path("account/login/kakao/", kakao_login, name="kakao_login"),
-    path("account/login/kakao/callback/", kakao_callback, name="kakao_callback"),
+    path("kakao/", kakao_login, name="kakao_login"),
+    path("kakao/callback/", kakao_callback, name="kakao_callback"),
 ]

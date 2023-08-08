@@ -1,9 +1,20 @@
 from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Teacher, Student
+from .serializers import TeacherSignUpSerializer, StudentSignUpSerializer
 
 # Create your views here.
 from django.shortcuts import redirect
 import urllib
 
+# 답변자 ViewSet
+class TeacherSignUpViewSet(viewsets.ModelViewSet):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSignUpSerializer
+
+class StudentSignUpViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSignUpSerializer
 
 # code 요청
 def kakao_login(request):
